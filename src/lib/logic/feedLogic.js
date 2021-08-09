@@ -16,7 +16,7 @@ export const savePost = () => {
     db.collection('post').add({
 		  idUser: idUser.displayName,
 		  post: writePostValue,
-		  date: ( new Date().toLocaleDateString('day','month','year')),
+		  date: (new Date().toLocaleDateString('day', 'month', 'year')),
 		  like: 0,
 		})
 		 .then((docRef) => {
@@ -31,7 +31,7 @@ export const savePost = () => {
 		const updateEditPost = db.collection('post').doc(idEditPost);
 		updateEditPost.update({
 		  post: writePostValue,
-		  date: ( new Date().toLocaleDateString('day','month','year'))
+		  date: (new Date().toLocaleDateString('day', 'month', 'year')),
 		})
 		  .then(() => {
 			console.log('Document successfully updated!');
@@ -45,8 +45,6 @@ export const savePost = () => {
 	  }
   }
 };
-
-    
 
 export const readPost = () => {   // se  leen  los post de firebase  y se pintan en pantalla
   const tablePost = document.getElementById('extraDiv'); //variable 
@@ -133,21 +131,18 @@ export const readPost = () => {   // se  leen  los post de firebase  y se pintan
   });
 };
 
-function deletePost(idDeletePost){ // se  transforma en  funcion para pasar parametro
+function deletePost(idDeletePost) { // se  transforma en  funcion para pasar parametro
   console.log(idDeletePost); // se lee la id del elemento a eliminar 
   
   db.collection('post').doc(idDeletePost).delete().then(() => {  // se pone la id del post
-      console.log("Document successfully deleted!");
+    console.log("Document successfully deleted!");
   document.getElementById('hideIdDeletePost').value = '';// se reinicia todo
-      document.getElementById('containerModal').style.visibility = "hidden";
-      readPost();// se pone readpost para refrescar la vista
+    document.getElementById('containerModal').style.visibility = "hidden";
+    readPost();// se pone readpost para refrescar la vista
   }).catch((error) => {
-        console.error("Error removing document: ", error);
-      });
-
-      
+    console.error("Error removing document: ", error);
+  });      
 }
-
 
 export const editPost = (evt) => {
   document.getElementById('writePost').value = evt.currentTarget.post;
@@ -219,25 +214,21 @@ const updatePostLike = (idEditPost, like) => { // contador de  likes
 };
 
 export const confirmDeletePost = (evt) => {// se asocia al boton eliminar  del modal
-	
-	deletePost(document.getElementById('hideIdDeletePost').value);//se  guarda  el valor  del id en el input que se esconde
-
-        
- }
+  deletePost(document.getElementById('hideIdDeletePost').value);//se  guarda  el valor  del id en el input que se esconde
+}
  
 export const noConfirmDeletePost = (evt) => {
 	//Usuario no confirma eliminacion, se esconde el modal
-	document.getElementById('containerModal').style.visibility = "hidden";
-        
- }
- export const askConfirmDeletePost = (evt) => {
+document.getElementById('containerModal').style.visibility = 'hidden';
+}
+
+export const askConfirmDeletePost = (evt) => {
 	//Usuario no confirma eliminacion, se esconde el modal
 	document.getElementById('hideIdDeletePost').value = evt.currentTarget.idPost;
-	document.getElementById('containerModal').style.visibility = "visible";
-        
- }
- export const closeInputModal = (evt) => {
+	document.getElementById('containerModal').style.visibility = 'visible';
+}
+
+export const closeInputModal = (evt) => {
 	//Usuario no confirma eliminacion, se esconde el modal
-	document.getElementById('containerModalInput').style.visibility = "hidden";
-        
- }
+	document.getElementById('containerModalInput').style.visibility = 'hidden';
+}
